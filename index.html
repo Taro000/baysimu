@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayes Simulator</title>
+    <!--リセットCSS-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+    />
+    <!--MathML-->
+    <script
+      type="text/javascript"
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=MML_SVG"
+    ></script>
+    <!--カスタムCSS-->
+    <link rel="stylesheet" href="dest_style/all.min.css" />
+    <link rel="stylesheet" href="dest_style/index.min.css" />
+  </head>
+  <body>
+    <header>
+      <a href="index.html"><h1>BaySimu</h1></a>
+      <ul>
+        <li><a href="about.html">BaySimuについて</a></li>
+        <li><a href="owner.html">運営者</a></li>
+      </ul>
+    </header>
+    <main>
+      <div class="container">
+        <div id="input-section">
+          <div id="input-left">
+            <h2>検査</h2>
+            <div class="section-sub">
+              <h3>感度</h3>
+              <p><span id="kando-text"></span>％</p>
+              <input
+                id="kando"
+                min="1"
+                max="100"
+                step="1"
+                value="90"
+                type="range"
+              />
+            </div>
+            <!--section-sub-->
+            <div class="section-sub">
+              <h3>特異度</h3>
+              <p><span id="tokuido-text"></span>％</p>
+              <input
+                id="tokuido"
+                min="1"
+                max="100"
+                step="1"
+                value="95"
+                type="range"
+              />
+            </div>
+            <!--section-sub-->
+          </div>
+          <!--input-left-->
+          <div id="input-right">
+            <h2>状況</h2>
+            <div class="section-sub">
+              <h3>検査者数</h3>
+              <p><span id="test-num-text"></span>人</p>
+              <input id="test-num" value="10000" type="number" />
+            </div>
+            <!--section-sub-->
+            <div class="section-sub">
+              <h3>感染率</h3>
+              <p><span id="infection-rate-text"></span>％</p>
+              <input
+                id="infection-rate"
+                min="1"
+                max="100"
+                step="1"
+                value="10"
+                type="range"
+              />
+            </div>
+            <!--section-sub-->
+          </div>
+          <!--input-right-->
+        </div>
+        <!--input-section-->
+        <div id="result-section">
+          <div id="result-sec-1">
+            <h2>計算結果</h2>
+            <div id="result-1-left">
+              <dic class="section-sub">
+                <h3>陽性的中率</h3>
+                <h3 class="calc-result"><span id="p-target-rate"></span>％</h3>
+              </dic>
+              <!--section-sub-->
+              <dic class="section-sub">
+                <h3>偽陽性率</h3>
+                <h3 class="calc-result"><span id="false-p-rate"></span>％</h3>
+              </dic>
+              <!--section-sub-->
+            </div>
+            <!--result-1-left-->
+            <div id="result-1-right">
+              <dic class="section-sub">
+                <h3>陰性的中率</h3>
+                <h3 class="calc-result"><span id="n-target-rate"></span>％</h3>
+              </dic>
+              <!--section-sub-->
+              <dic class="section-sub">
+                <h3>偽陰性率</h3>
+                <h3 class="calc-result"><span id="false-n-rate"></span>％</h3>
+              </dic>
+              <!--section-sub-->
+            </div>
+            <!--result-1-right-->
+          </div>
+          <!--result-sec-1-->
+          <div id="result-sec-2">
+            <h3>分類表</h3>
+            <table>
+              <tr>
+                <th></th>
+                <th>感染している</th>
+                <th>感染していない</th>
+                <th>合計</th>
+              </tr>
+              <tr>
+                <th>陽性</th>
+                <td id="t_p_num"></td>
+                <td id="f_p_num"></td>
+                <td class="p_num"></td>
+              </tr>
+              <tr>
+                <th>陰性</th>
+                <td id="f_n_num"></td>
+                <td id="t_n_num"></td>
+                <td class="n_num"></td>
+              </tr>
+              <tr>
+                <th>合計</th>
+                <td class="inf_sum"></td>
+                <td class="no_inf_sum"></td>
+                <td></td>
+              </tr>
+            </table>
+            <div id="result-2-left">
+              <dic class="section-sub">
+                <h3>感染者数</h3>
+                <h3 class="calc-result"><span class="inf_sum"></span>人</h3>
+              </dic>
+              <!--section-sub-->
+              <dic class="section-sub">
+                <h3>陽性者数</h3>
+                <h3 class="calc-result"><span class="p_num"></span>人</h3>
+              </dic>
+              <!--section-sub-->
+            </div>
+            <!--result-2-left-->
+            <div id="result-2-right">
+              <dic class="section-sub">
+                <h3>非感染者数</h3>
+                <h3 class="calc-result"><span class="no_inf_sum"></span>人</h3>
+              </dic>
+              <!--section-sub-->
+              <dic class="section-sub">
+                <h3>陰性者数</h3>
+                <h3 class="calc-result"><span class="n_num"></span>人</h3>
+              </dic>
+              <!--section-sub-->
+            </div>
+            <!--result-2-right-->
+          </div>
+          <!--result-sec-2-->
+        </div>
+        <!--result-section-->
+        <div id="bayes-section">
+          <h2>ベイズ計算</h2>
+          <div id="bayes-info">
+            <h3>ベイズの定理とは</h3>
+            <p>
+              ベイズの定理とは、簡単にいえば物事を予測するための道具です。確率論を使って数学的に定義されているもので、事前確率・尤度をつかって事後確率を導きます。事後確率というのが予測したいしたい物事が起こる確率です。今回で言えば、陽性者が実際に感染している確率です。そして事前確率はデータが得られる前に予測できる確率です。データとは今回ではPCR検査や抗体検査といった検査結果を指します。つまり検査前に感染者を当てられる確率です。最後に尤度(ゆうど)ですが、これは簡単に言えばデータへの信頼度みたいなものです。今回で言えばPCR検査などの感度にあたります。要は感染者の陽性率なので、実際の感染者を陽性と判定できる確率ですね。この2つを使って以下の数式として表されるのが、ベイズの定理です。
+            </p>
+            <p>
+              <math id="math">
+                <mi>P</mi>
+                <mfenced>
+                  <mrow>
+                    <mi>θ</mi>
+                    <mo>|</mo>
+                    <mi>X</mi>
+                  </mrow>
+                </mfenced>
+                <mo>=</mo>
+                <mfrac>
+                  <mrow>
+                    <mi>P</mi>
+                    <mfenced>
+                      <mrow>
+                        <mi>X</mi>
+                        <mo>|</mo>
+                        <mi>θ</mi>
+                      </mrow>
+                    </mfenced>
+                    <mi>P</mi>
+                    <mfenced>
+                      <mrow>
+                        <mi>θ</mi>
+                      </mrow>
+                    </mfenced>
+                  </mrow>
+                  <mrow>
+                    <mi>P</mi>
+                    <mfenced>
+                      <mrow>
+                        <mi>X</mi>
+                      </mrow>
+                    </mfenced>
+                  </mrow>
+                </mfrac>
+              </math>
+            </p>
+            <p>
+              <math>
+                <mi>P</mi>
+                <mfenced>
+                  <mrow>
+                    <mi>θ</mi>
+                    <mo>|</mo>
+                    <mi>X</mi>
+                  </mrow>
+                </mfenced>
+              </math>
+              は事後確率です。
+              <math>
+                <mi>P</mi>
+                <mfenced>
+                  <mrow>
+                    <mi>X</mi>
+                    <mo>|</mo>
+                    <mi>θ</mi>
+                  </mrow>
+                </mfenced>
+              </math>
+              は尤度で、
+              <math>
+                <mi>P</mi>
+                <mfenced>
+                  <mrow>
+                    <mi>θ</mi>
+                  </mrow>
+                </mfenced>
+              </math>
+              は事前確率です。ちなみに
+              <math>
+                <mi>P</mi>
+                <mfenced>
+                  <mrow>
+                    <mi>X</mi>
+                  </mrow>
+                </mfenced>
+              </math>
+              は母集団の確率です。今回は陽性者が感染者である確率を求めたいので、陽性率ということになります。
+            </p>
+            <p>
+              実は事後確率は陽性的中率のことであり、尤度は感度、事前確率は感染率のことなのです。つまり陽性的中率はベイズの定理によって計算されていたのです。また感染率とはある人が実際に感染しているであろう確率のことですが、これは熱などの症状が出ている人の方がより高くなることは直感的にも理解できます。では感染率を上げてみてください。陽性的中率が上がりましたよね。これが検査を全員にするのではなく、診察などを通して陽性の可能性が高い人に対して積極的に検査をする理由です。
+            </p>
+          </div>
+          <!--bayes-info-->
+          <div id="bayes-result">
+            <div id="bayes-left">
+              <div class="section-sub">
+                <h3>尤度(感度)</h3>
+                <h3 class="calc-result"><span id="yudo-text"></span>％</h3>
+              </div>
+              <!--section-sub-->
+              <div class="section-sub">
+                <h3>事後確率(陽性的中率)</h3>
+                <h3 class="calc-result"><span id="zigo-text"></span>％</h3>
+              </div>
+              <!--section-sub-->
+            </div>
+            <!--bayes-left-->
+            <div id="bayes-right">
+              <div class="section-sub">
+                <h3>事前確率(感染率)</h3>
+                <h3 class="calc-result"><span id="zizen-text"></span>％</h3>
+              </div>
+              <!--section-sub-->
+            </div>
+            <!--bayes-right-->
+          </div>
+          <!--bayes-result-->
+        </div>
+        <!--bayes-section-->
+      </div>
+      <!--container-->
+    </main>
+    <footer>
+      <div class="footer-left">
+        <a href="index.html"><h1>BaySimu</h1></a>
+        <ul>
+          <li><a href="about.html">BaySimuについて</a></li>
+          <li><a href="owner.html">運営者</a></li>
+        </ul>
+      </div>
+      <!--footer-left-->
+      <div class="footer-right">
+        <ul></ul>
+      </div>
+      <!--footer-right-->
+    </footer>
+
+    <!--jQuery-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <!--カスタムJS-->
+    <script src="dest_js/index.min.js"></script>
+  </body>
+</html>

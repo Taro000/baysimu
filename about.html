@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayes Simulator</title>
+    <!--リセットCSS-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+    />
+    <!--カスタムCSS-->
+    <link rel="stylesheet" href="dest_style/all.min.css" />
+    <link rel="stylesheet" href="dest_style/about.min.css" />
+  </head>
+  <body>
+    <header>
+      <a href="index.html"><h1>BaySimu</h1></a>
+      <ul>
+        <li><a href="about.html">BaySimuについて</a></li>
+        <li><a href="owner.html">運営者</a></li>
+      </ul>
+    </header>
+    <main>
+      <div class="container">
+        <div id="baysimu-info">
+          <h2>BaySimuとは</h2>
+          <p>
+            BaySimuとはBayes
+            Simulatorの略です。ここでBayesとはベイズの定理のことで、ベイズの定理を使って検査の精度や検査の実施状況などから、感染症の感染者をどのくらいの確率で見つけられるか？をシミュレーションできます。ベイズの定理の詳しい説明はメインページをご覧ください。
+          </p>
+        </div>
+        <!--baysimu-info-->
+        <div id="math-info">
+          <h2>用語の説明</h2>
+          <h3>感度</h3>
+          <p>
+            感度とは検査における感染者の陽性率です。つまり感度80%は感染者に対して検査をしたら80％の確率で陽性と判定されるということです。ちなみにCOVID19のPCR検査の感度は70-90%程度だと言われています。
+          </p>
+          <h3>特異度</h3>
+          <p>
+            特異度とは非感染者の陰性率です。つまり特異度80%は非感染者に対して検査をしたら80％の確率で陰性と判定されるということです。COVID19のPCR検査の感度は95%以上だと言われています。
+          </p>
+          <h3>感染率</h3>
+          <p>
+            感染率とは検査対象の人が感染しているであろう確率です。感染率10%ならばその人は10%の確率で感染しているということです。検査対象者全体で10%の割合の人が感染していると考えてもいいです。検査対象者が全国民であれば10%でも、東京23区の人に絞れば感染率が上がりそうですよね。
+          </p>
+          <h3>陽性的中率</h3>
+          <p>
+            陽性的中率とは陽性と判定された人の中で実際に感染している人の割合です。陽性的中率90%ならば、100人に陽性判定が出た場合90人は実際に感染しているということです。
+          </p>
+          <h3>陰性的中率</h3>
+          <p>
+            陰性的中率とは陰性と判定された人の中で実際に感染していない人の割合です。陰性的中率90%ならば、100人に陰性判定が出た場合90人は実際に感染していないということです。
+          </p>
+          <h3>偽陽性率</h3>
+          <p>
+            偽陽性率とは陽性と判定された人の中で実は感染していない人の割合です。偽陽性率10%ならば、100人に陽性判定が出た場合10人は実際には感染していないということです。
+          </p>
+          <h3>偽陰性率</h3>
+          <p>
+            偽陰性率とは陰性と判定された人の中で実は感染している人の割合です。偽陰性率10%ならば、100人に陰性判定が出た場合10人は実際には感染しているということです。
+          </p>
+        </div>
+        <!--math-info-->
+      </div>
+      <!--container-->
+    </main>
+    <footer>
+      <div class="footer-left">
+        <a href="index.html"><h1>BaySimu</h1></a>
+        <ul>
+          <li><a href="about.html">BaySimuについて</a></li>
+          <li><a href="owner.html">運営者</a></li>
+        </ul>
+      </div>
+      <!--footer-left-->
+      <div class="footer-right">
+        <ul></ul>
+      </div>
+      <!--footer-right-->
+    </footer>
+  </body>
+</html>
